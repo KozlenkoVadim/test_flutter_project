@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:test_flutter_project/models/Product.dart';
+import 'package:test_flutter_project/widgets/bottom_bar.dart';
+import 'package:test_flutter_project/widgets/catalog.dart';
+import 'package:test_flutter_project/widgets/item_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final productData = Provider.of<ProductDataProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.amberAccent,
       body: SafeArea(
@@ -34,20 +42,31 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Container(
-                child: Text('horizontal list of cards'),
+                padding: const EdgeInsets.all(5.0),
+                height: 290,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: productData.items.length,
+
+                  itemBuilder: (context,int index) =>
+                  ChangeNotifierProvider.value(
+                    value: productData.items[index],
+                    child: ItemCard(),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text('catalog of Cocktails'),
+                child: Text('Каталог Коктейлей'),
               ),
-              Container(
-                child: Text('list of catalogs'),
-              ),
+              ...productData.items.map((value) {
+                return CatalogListTile(imgUrl: value.imgUrl);
+              }).toList(),
             ],
           ),
         ),
       ),
-      // !- Bottom Bar
+      bottomNavigationBar: BottomBar(),
     );
   }
 }

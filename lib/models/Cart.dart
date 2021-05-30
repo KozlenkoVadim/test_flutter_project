@@ -7,14 +7,14 @@ class Cart {
   final String title;
   final int number;
   final num price;
-  final String imUrl;
+  final String imgUrl;
 
   Cart(
       {@required this.id,
       @required this.title,
       @required this.number,
       @required this.price,
-      @required this.imUrl});
+      @required this.imgUrl});
 }
 
 // Cart Provider
@@ -43,7 +43,7 @@ class CartDataProvider with ChangeNotifier {
               id: ex.id,
               title: ex.title,
               price: ex.price,
-              imUrl: ex.imUrl,
+              imgUrl: ex.imgUrl,
               number: ex.number + 1));
     } else {
       _cartItems.putIfAbsent(
@@ -52,7 +52,7 @@ class CartDataProvider with ChangeNotifier {
               id: '${DateTime.now()}',
               title: title,
               price: price,
-              imUrl: imgUrl,
+              imgUrl: imgUrl,
               number: 1));
     }
     notifyListeners();
@@ -71,7 +71,7 @@ class CartDataProvider with ChangeNotifier {
             id: ex.id,
             title: ex.title,
             price: ex.price,
-            imUrl: ex.imUrl,
+            imgUrl: ex.imgUrl,
             number: ex.number + 1));
     notifyListeners();
   }
@@ -87,7 +87,7 @@ class CartDataProvider with ChangeNotifier {
               id: ex.id,
               title: ex.title,
               price: ex.price,
-              imUrl: ex.imUrl,
+              imgUrl: ex.imgUrl,
               number: ex.number - 1));
     }
     notifyListeners();
