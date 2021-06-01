@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_flutter_project/models/Cart.dart';
 import 'package:test_flutter_project/pages/cart_page.dart';
+import 'package:test_flutter_project/pages/item_page.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({Key key}) : super(key: key);
@@ -31,7 +32,13 @@ class BottomBar extends StatelessWidget {
                   tag: cartItems.values.toList()[index].imgUrl,
                   child: GestureDetector(
                     onTap: () {
-                      // Navigation to the product page
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ItemPage(
+                            productId: cartData.cartItems.keys.toList()[index],
+                          ),
+                        ),
+                      );
                     },
                     child: Stack(
                       alignment: Alignment.center,
@@ -87,7 +94,6 @@ class BottomBar extends StatelessWidget {
                 ),
               ),
             ),
-
             Container(
               height: 50,
               width: MediaQuery.of(context).size.width / 2 - 50,
@@ -95,12 +101,12 @@ class BottomBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text(cartData.totalAmount.toStringAsFixed(2)),
-                  IconButton(icon: Icon(
-                      Icons.shopping_basket, color: Color(0xFF676E79)),
-                    onPressed: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder:
-                    (context) => CartPage(),
-                    ));
+                  IconButton(
+                    icon: Icon(Icons.shopping_basket, color: Color(0xFF676E79)),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CartPage(),
+                      ));
                     },
                   ),
                 ],

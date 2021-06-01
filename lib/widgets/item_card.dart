@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_flutter_project/models/Cart.dart';
 import 'package:test_flutter_project/models/Product.dart';
+import 'package:test_flutter_project/pages/item_page.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({Key key}) : super(key: key);
@@ -24,7 +25,8 @@ class ItemCard extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              // !- It's will be a navigation to the cocktail page
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ItemPage(productId: product.id)));
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,21 +53,23 @@ class ItemCard extends StatelessWidget {
               ],
             ),
           ),
-
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('${product.price}'),
-                IconButton(onPressed: (){
-                  Provider.of<CartDataProvider>(context, listen: false)
-                      .addItem(
-                    productId: product.id,
-                    price: product.price,
-                    title: product.title,
-                    imgUrl: product.imgUrl,
-                  );
-                }, icon: Icon(Icons.add_circle_outline,color: Colors.black12)),
+                IconButton(
+                    onPressed: () {
+                      Provider.of<CartDataProvider>(context, listen: false)
+                          .addItem(
+                        productId: product.id,
+                        price: product.price,
+                        title: product.title,
+                        imgUrl: product.imgUrl,
+                      );
+                    },
+                    icon:
+                        Icon(Icons.add_circle_outline, color: Colors.black12)),
               ],
             ),
           ),
